@@ -1,0 +1,91 @@
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;font-size:15px;line-height:1.6}
+.wrap{max-width:660px;margin:0 auto;padding:2rem 1.25rem}
+h1{font-size:24px;font-weight:600;margin-bottom:6px}
+.sub{font-size:14px;color:#666;margin-bottom:2rem;line-height:1.6}
+.section{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+.section-title{font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.07em;margin-bottom:1rem}
+.section-note{font-size:13px;color:#666;margin-bottom:1rem;line-height:1.6}
+.f{display:flex;flex-direction:column;gap:4px}
+.f label{font-size:13px;color:#555}
+.f input[type=number],.f input[type=text],.f textarea{padding:9px 11px;border:1px solid #ddd;border-radius:8px;font-size:14px;color:#1a1a1a;width:100%;background:#fafafa;font-family:inherit}
+.f input:focus,.f textarea:focus{outline:none;border-color:#999;background:#fff}
+.f textarea{resize:vertical;min-height:80px;line-height:1.5}
+.hint{font-size:11px;color:#aaa;margin-top:2px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.row.single{grid-template-columns:1fr}
+.chip-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chip{padding:7px 15px;border:1px solid #ddd;border-radius:20px;font-size:13px;cursor:pointer;color:#555;background:#fff;transition:all .15s}
+.chip:hover{border-color:#999}
+.chip.on{border-color:#1a1a1a;background:#1a1a1a;color:#fff}
+.scenario-opt{padding:14px 16px;border:1px solid #ddd;border-radius:10px;font-size:13px;cursor:pointer;color:#555;margin-bottom:8px;background:#fff;transition:all .15s}
+.scenario-opt:hover{border-color:#999}
+.scenario-opt.on{border-color:#1a1a1a;background:#1a1a1a;color:#fff}
+.scenario-opt strong{display:block;font-weight:600;margin-bottom:2px;font-size:13px}
+.scenario-opt span{font-size:12px;opacity:.75}
+.scenario-opt.on span{opacity:.6}
+.calc-btn{width:100%;padding:14px;background:#1a1a1a;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;margin-top:1.25rem;letter-spacing:.01em}
+.calc-btn:hover{background:#333}
+.results{margin-top:2rem;display:none}
+.fp-card{background:#f7f7f5;border:1px solid #e8e8e8;border-radius:12px;padding:1.25rem;margin-bottom:1.5rem}
+.fp-title{font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
+.fp-insight{font-size:14px;color:#1a1a1a;line-height:1.7;margin-bottom:10px}
+.fp-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.fp-tag{font-size:12px;padding:3px 10px;border-radius:10px;background:#1a1a1a;color:#fff}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.25rem}
+.compare-card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:1.25rem}
+.compare-card.winner{border-color:#1a1a1a;border-width:2px}
+.compare-label{font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
+.compare-label.win-label{color:#1a1a1a}
+.compare-metric{margin-bottom:10px}
+.compare-metric-name{font-size:11px;color:#aaa;margin-bottom:2px}
+.compare-metric-val{font-size:18px;font-weight:600;color:#1a1a1a}
+.compare-metric-sub{font-size:11px;color:#888;margin-top:1px}
+.insight-card{background:#f7f7f5;border:1px solid #e8e8e8;border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+.insight-title{font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px}
+.insight-text{font-size:14px;color:#1a1a1a;line-height:1.7}
+.data-point{border-left:3px solid #1a1a1a;padding:10px 14px;margin:1rem 0;background:#fafafa;border-radius:0 8px 8px 0}
+.data-point-label{font-size:10px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
+.data-point-text{font-size:13px;color:#555;line-height:1.6}
+.assumptions{border:1px solid #e8e8e8;border-radius:10px;overflow:hidden;margin-bottom:1rem}
+.assumptions-header{padding:12px 16px;font-size:13px;font-weight:600;color:#555;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:#fafafa}
+.assumptions-header:hover{background:#f0f0f0}
+.assumptions-body{padding:14px 16px;font-size:12px;color:#777;line-height:1.8;display:none;border-top:1px solid #e8e8e8}
+.assumptions-body.open{display:block}
+.assumptions-body ul{padding-left:16px}
+.assumptions-body li{margin-bottom:4px}
+.disclaimer{font-size:11px;color:#bbb;line-height:1.7;margin-top:1.5rem;padding-top:1rem;border-top:1px solid #f0f0f0}
+.fp-fallback{background:#fff8f0;border:1px solid #ffe4b5;border-radius:10px;padding:1rem;margin-bottom:1rem;font-size:13px;color:#8a6000;line-height:1.6}
+.badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:6px;background:#1a1a1a;color:#fff;margin-left:8px;vertical-align:middle}
+</style>
+
+<div class="wrap">
+  <h1>The Tradeoff Engine</h1>
+  <p class="sub">Your runway tells you how long you have. This tool helps you understand what each decision actually costs — and what it gives back. Powered by your financial fingerprint.</p>
+  <div id="te-fpDisplay"></div>
+  <div class="section">
+    <div class="section-title">Choose a tradeoff to explore</div>
+    <p class="section-note">Select one scenario. We'll walk through the numbers together.</p>
+    <div id="te-scenarioOpts">
+      <div class="scenario-opt" onclick="selScenario(this,'assetalloc')"><strong>Cash out &amp; diversify vs. hold a concentrated asset</strong><span>RSUs, company stock, or a single investment — is holding still the right call, or is it time to diversify?</span></div>
+      <div class="scenario-opt" onclick="selScenario(this,'retirement')"><strong>Pause vs. continue retirement contributions</strong><span>What does stopping — even temporarily — actually cost your future self?</span></div>
+      <div class="scenario-opt" onclick="selScenario(this,'experiences')"><strong>Invest now vs. lean into experiences with family</strong><span>The kids are only this age once. What does prioritizing experiences actually cost?</span></div>
+      <div class="scenario-opt" onclick="selScenario(this,'buyrent')"><strong>Buy vs. continue renting</strong><span>Is homeownership the right move right now, or is renting actually the smarter financial play?</span></div>
+      <div class="scenario-opt" onclick="selScenario(this,'upsize')"><strong>Upsize the house vs. stay put and invest the difference</strong><span>The bigger home feels right. But what does the math say?</span></div>
+      <div class="scenario-opt" onclick="selScenario(this,'relocate')"><strong>Relocate vs. stay</strong><span>A new city, a new chapter. What is the real financial case?</span></div>
+      <div class="scenario-opt" onclick="selScenario(this,'custom')"><strong>Something else — describe your tradeoff</strong><span>Your situation does not fit a template. Tell us what you are weighing.</span></div>
+    </div>
+  </div>
+  <div class="section" id="te-inputPanel" style="display:none">
+    <div class="section-title" id="te-inputPanelTitle">Your numbers</div>
+    <p class="section-note" id="te-inputPanelNote"></p>
+    <div id="te-inputPanelFields"></div>
+    <button class="calc-btn" onclick="runScenario()">Run this tradeoff</button>
+  </div>
+  <div class="results" id="te-results">
+    <div id="te-resultsInner"></div>
+    <div class="disclaimer">This tool is for educational purposes only. It provides directional guidance based on the inputs you provide and does not constitute financial, tax, or investment advice. Results are estimates only and may not reflect your complete financial picture. Please consult a licensed financial advisor before making major financial decisions.</div>
+  </div>
+</div>
+
